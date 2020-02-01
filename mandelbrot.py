@@ -1,10 +1,11 @@
 import math
 import numpy as np
 
-X_RANGE = np.arange(-2, 1, 0.1)
-Y_RANGE = np.arange(-1, 1, 0.1)
-MAX_ITERATIONS = 1000
+RES = 10
+MAX_ITERATIONS = 100
 debug = False
+X_RANGE = range(-2*RES, 1*RES)
+Y_RANGE = range(-1*RES, 1*RES)
 
 def check_mb_set(x, y):
     real = imag = counter = 0
@@ -26,7 +27,9 @@ def check_mb_set(x, y):
     return True, 0   
 
 for x in X_RANGE:
+    x = x/RES
     for y in Y_RANGE:
+        y = y/RES
         if check_mb_set(x, y):
             print(x, y)
 
