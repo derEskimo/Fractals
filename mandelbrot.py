@@ -1,11 +1,14 @@
 import math
 import numpy as np
+from matplotlib import pyplot
 
 RES = 10
 MAX_ITERATIONS = 100
-debug = False
+debug = True
 X_RANGE = range(-2*RES, 1*RES)
 Y_RANGE = range(-1*RES, 1*RES)
+
+image = np.empty((len(X_RANGE), len(Y_RANGE)), dtype=np.uint8)
 
 def check_mb_set(x, y):
     real = imag = counter = 0
@@ -28,11 +31,11 @@ def check_mb_set(x, y):
     return True, 0   
 
 for x in X_RANGE:
-    x = x/RES
     for y in Y_RANGE:
-        y = y/RES
-        if check_mb_set(x, y):
-            print(x, y)
+        _, value = check_mb_set(x/RES, y/RES)
+        image[x, y] = value
+
+pyplot.imshow(image, cmap="plasma")
 
             
 
