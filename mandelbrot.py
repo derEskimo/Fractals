@@ -36,6 +36,6 @@ def check_mb_set(x, y):
 for x in tqdm(X_RANGE):
     for y in Y_RANGE:
         _, value = check_mb_set(x/RES, y/RES)
-        image[y, x] = value
+        image[y+1*RES, x+2*RES] = value
 
 matplotlib.image.imsave('mandelbrot.png', image)
