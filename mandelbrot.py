@@ -5,37 +5,32 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-RES = 100
-MAX_ITERATIONS = 5
-debug = False
+RES = 10000                                                                                 #Image-Size is 3*RES x 2*RES
+MAX_ITERATIONS = 500                                                                        #Iterations to do per point. Determines Granularity on Borders
+
+#Create Image
 X_RANGE = range(-2*RES, 1*RES)
 Y_RANGE = range(-1*RES, 1*RES)
-
 image = np.empty((len(Y_RANGE), len(X_RANGE)), dtype=np.uint8)
 
 def check_mb_set(x, y):
+    '''check if point (x,y) is part of mandelbrotset. If yes returns True and 0.
+    Else, returns False and iterationcounter when realized it is not bounded'''
     real = imag = counter = 0
-    if debug:
-        print("**************************************************")
-        print("Check Point ({0:}/{1:})".format(x, y))
+    
     while counter < MAX_ITERATIONS:
-        if debug: 
-            print("--------------------------------------------------")
-            print("Iteration-Step: {0:}".format(counter))
-            print("Complex Number: z={0:+f}{1:+f}i".format(real, imag))
         dist = math.sqrt(real**2 + imag**2)
-        if debug: print("Distance to origin is: {0:}".format(dist))
-        real, imag = real**2 - imag**2 + x, 2*real*imag + y
+        real, imag = real**2 - imag**2 + x, 2*real*imag + y                                 #z(i+1)=z(i)²+c
         counter += 1
-        if dist > 2:
-            if debug: print("Distance not converging. Point ({0:}/{1:}) is NOT in Mandelbrot Set".format(x, y))
+        if dist > 2:                                                                        #gets bigger and bigger. Not in Mandelbrotset
             return False, counter
-    if debug: print("Distance converging. Point ({0:}/{1:}) is in Mandelbrot Set".format(x, y))
-    return True, 0   
+    return True, 0                                                                          #in Mandelbrotset
 
+#Iterate over Image and check if point is in Mandelbrotset
 for x in tqdm(X_RANGE):
     for y in Y_RANGE:
         _, value = check_mb_set(x/RES, y/RES)
         image[y+1*RES, x+2*RES] = value
 
-matplotlib.image.imsave('mandelbrot.png', image)
+#Save to file
+matplotlib.image.imsave('mandelbrot_big.png', image, cmap="gist_stern")
