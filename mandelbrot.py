@@ -1,9 +1,8 @@
 import math
 import numpy as np
 from tqdm import tqdm
-import matplotlib
-matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+import matplotlib.image as img
 
 RES = 10000                                                                                 #Image-Size is 3*RES x 2*RES
 MAX_ITERATIONS = 500                                                                        #Iterations to do per point. Determines Granularity on Borders
@@ -32,5 +31,9 @@ for x in tqdm(X_RANGE):
         _, value = check_mb_set(x/RES, y/RES)
         image[y+1*RES, x+2*RES] = value
 
+#Show plot
+plt.imshow(image, cmap="gist_stern")
+plt.show()
+
 #Save to file
-matplotlib.image.imsave('mandelbrot_big.png', image, cmap="gist_stern")
+img.imsave('mandelbrot_big.png', image, cmap="gist_stern")
