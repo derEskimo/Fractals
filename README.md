@@ -13,5 +13,6 @@ Veritasium: https://www.youtube.com/watch?v=ovJcsL7vyrk
 Thanks!
 
 ### Result:  
-Ausgabe Mandelbrot Set mit `RES=500` und `MAX_ITERATIONS=100`  
-![](mandelbrot.png "Mandelbrotset")
+Output Mandelbrot Set with Parameters `RES=500` and `MAX_ITERATIONS=100` which leads to an Image the size of 1500x1000px in 53s.  
+![](mandelbrot.png "Mandelbrotset")  
+Big Images take much Time. So maybe do an interactive mode and calculate only the Image zoomed to or use a GPU and parallel processing for rendering.
